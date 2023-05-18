@@ -44,6 +44,5 @@ Widget build(BuildContext context) {
 ```
 
 Output: 
-<a>
-    <img src="gif/cyberpunk_blue.gif" height="600"/>
-</a>
+
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/9ffdb9ef-e98a-49ce-96c4-d79822929848" alt="blue" height="400"/>
