@@ -7,7 +7,6 @@
 <img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/e065f33f-c79e-44ee-8037-7f51468b5ddf" alt="normal" height="400"/><img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/a09e5b91-985e-45b1-be3d-a4daf3e95838" alt="purple" height="400"/>
 <img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/87dbf5ae-bc0e-4d7d-a3ef-278ea70b0ba2" alt="cyan" height="400"/>
 <img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/9ffdb9ef-e98a-49ce-96c4-d79822929848" alt="blue" height="400"/>
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/13069c44-1328-4bfd-ba2a-cf4bf5949097" alt="blue" height="400"/>
  
 
   
