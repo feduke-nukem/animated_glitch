@@ -1,15 +1,6 @@
 name: build
 
-on:
-  push:
-    paths:
-      - "./**"
-      - ".github/workflows/build.yaml"
-
-  pull_request:
-    paths:
-      - "./**"
-      - ".github/workflows/build.yaml"
+on: [push, pull_request]
 
 jobs:
   build:
