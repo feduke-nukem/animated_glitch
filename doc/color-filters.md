@@ -24,6 +24,5 @@ return Scaffold(
 ```
 
 Output:
-<a>
-    <img src="gif/color_filters.gif" height="600"/>
-</a>
+
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/13069c44-1328-4bfd-ba2a-cf4bf5949097" alt="blue" height="400"/>
