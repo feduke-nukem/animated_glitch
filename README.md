@@ -3,10 +3,11 @@
 </p>
 
 ## AnimatedGlitch
-<img src="doc/gif/cyberpunk_normal.gif" alt="normal" height="400"/>
-<img src="doc/gif/cyberpunk_purple.gif" alt="purple" height="400"/>
-<img src="doc/gif/cyberpunk_cyan.gif" alt="cyan" height="400"/>
-<img src="doc/gif/cyberpunk_blue.gif" alt="blue" height="400"/>
+
+<img src="doc/gif/cyberpunk_normal.gif" alt="normal" height="400" width="190"/>
+<img src="doc/gif/cyberpunk_purple.gif" alt="purple" height="400" width="190"/>
+<img src="doc/gif/cyberpunk_cyan.gif" alt="cyan" height="400" width="190"/>
+<img src="doc/gif/cyberpunk_blue.gif" alt="blue" height="400" width="190"/>
 
 
 #### What is `animated_glitch` ?
