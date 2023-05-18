@@ -3,19 +3,19 @@ name: build
 on:
   push:
     paths:
-      - "."
+      - "./"
       - ".github/workflows/build.yaml"
 
   pull_request:
     paths:
-      - "."
+      - "./"
       - ".github/workflows/build.yaml"
 
 jobs:
   build:
     defaults:
       run:
-        working-directory: .
+        working-directory: ./
 
     runs-on: ubuntu-latest
 
