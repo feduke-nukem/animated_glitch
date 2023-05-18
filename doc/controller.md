@@ -36,8 +36,8 @@ final controller = AnimatedGlitchController(
     ],
   ),
 );
-```
+``` 
 
 Output:
 
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/8ab39447-8dee-4458-bede-d63d2189e614" alt="blue" height="400"/>
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/74b90ddb-6279-4b9c-b101-62740c4cbb9e" alt="blue" height="400"/>
