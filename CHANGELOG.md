@@ -1,4 +1,8 @@
-## 1.0.1
+## 1.0.3
+
+* Fixed unused DistortionShift.hideDelay
+
+## 1.0.2
 
 * Changed controller arguments for shifts (shifting -> shift)
 

@@ -34,11 +34,12 @@ void main() {
     });
 
     test('should shift distortions correctly', () {
+      final shift = DistortionShift(count: count);
       // Multiply by 2 because each shift has a start and end
       // Firstly, the distortion is shown and then it is hidden
       final expectedCount = count * 2;
       final shifter = DistortionShifter(
-        shift: DistortionShift(count: count),
+        shift: shift,
         widgetHeight: widgetHeight,
         glitchCoefficient: _glitchCoefficient,
         random: random,
@@ -66,7 +67,7 @@ void main() {
 
         expect(
           contains(shifter.onHideTimer).matches(
-            timers.startInvokedWith[DistortionShifter.hideMilliseconds],
+            timers.startInvokedWith[shift.hideDelay],
             {},
           ),
           isTrue,

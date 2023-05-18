@@ -19,10 +19,6 @@ class DistortionShifter extends Shifter<Distortion, DistortionShift> {
 
   /// @nodoc
   @visibleForTesting
-  static const hideMilliseconds = Duration(milliseconds: 300);
-
-  /// @nodoc
-  @visibleForTesting
   final distortions = Queue<Distortion>();
 
   /// @nodoc
@@ -87,7 +83,7 @@ class DistortionShifter extends Shifter<Distortion, DistortionShift> {
   void hideShifted() {
     timers.start(
       callback: onHideTimer,
-      duration: hideMilliseconds,
+      duration: shift.hideDelay,
     );
   }
 
