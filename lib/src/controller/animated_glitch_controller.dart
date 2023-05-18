@@ -16,6 +16,7 @@ const _levelMultiplier = 1.1;
 
 /// {@category Getting started}
 /// {@category Controller}
+/// {@category Known issues}
 /// {@template animated_glitch_controller}
 /// Controller to control the [AnimatedGlitch] widget.
 ///

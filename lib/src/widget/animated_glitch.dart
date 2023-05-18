@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 /// {@category Getting started}
 /// {@category Color filters}
+/// {@category Known issues}
 /// Widget to display a glitch effect.
 ///
 /// It is driven by the provided [AnimatedGlitchController].
