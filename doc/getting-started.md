@@ -45,4 +45,4 @@ Widget build(BuildContext context) {
 
 Output: 
 
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/c9480e42-dc71-4293-828d-cc1efe291866" alt="blue" height="400"/>
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/c9480e42-dc71-4293-828d-cc1efe291866" height="400"/>

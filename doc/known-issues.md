@@ -1,6 +1,7 @@
 ## Known issues
 
-- Due to frequent rebuilds, some junks may occur when scrolling. To minimize this behavior, you can try stopping the [AnimatedGlitchController](https://pub.dev/documentation/animated_glitch/latest/animated_glitch/AnimatedGlitchController-class.html) when scrolling begins and starting it again when scrolling ends:
+- Due to frequent rebuilds, some junks may occur when scrolling. To minimize this behavior, you can try stopping the [AnimatedGlitchController](https://pub.dev/documentation/animated_glitch/latest/animated_glitch/AnimatedGlitchController-class.html) when scrolling begins and starting it again when scrolling ends.
+This approach may help:
 
 ```dart
 final _controllers = List.filled(

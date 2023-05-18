@@ -26,4 +26,4 @@ return Scaffold(
 Output:
 
 
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/681cc620-c49d-4b81-9b76-99ba9d6f6434" alt="blue" height="400"/>
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/681cc620-c49d-4b81-9b76-99ba9d6f6434" height="400"/>
