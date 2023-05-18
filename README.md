@@ -10,11 +10,11 @@
 </a>
 </p>
 
-## AnimatedGlitch
+## AnimatedGlitch  
 
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/e065f33f-c79e-44ee-8037-7f51468b5ddf" alt="normal" height="400"/><img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/a09e5b91-985e-45b1-be3d-a4daf3e95838" alt="purple" height="400"/>
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/87dbf5ae-bc0e-4d7d-a3ef-278ea70b0ba2" alt="cyan" height="400"/>
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/9ffdb9ef-e98a-49ce-96c4-d79822929848" alt="blue" height="400"/>
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/578abd20-cefa-4fad-b264-ee51ec28e2cc" alt="normal" height="400"/><img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/979b98b9-ea21-476e-92c4-cd01e5cecd4f" alt="purple" height="400"/>
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/255d1bf4-abc3-4088-b997-8cc6c22649d0" alt="cyan" height="400"/>
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/c9480e42-dc71-4293-828d-cc1efe291866" alt="blue" height="400"/>
  
 
   
