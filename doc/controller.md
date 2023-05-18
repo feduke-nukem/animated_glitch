@@ -39,6 +39,5 @@ final controller = AnimatedGlitchController(
 ```
 
 Output:
-<a>
-    <img src="gif/controller_customization.gif" height="600"/>
-</a>
+
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/8ab39447-8dee-4458-bede-d63d2189e614" alt="blue" height="400"/>
