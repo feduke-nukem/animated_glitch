@@ -1,0 +1,18 @@
+dartdoc:
+  categories:
+    "Getting started":
+      markdown: doc/getting-started.md
+      name: Getting started
+    "Controller":
+      markdown: doc/controller.md
+      name: Controller
+    "Color filters":
+      markdown: doc/color-filters.md
+      name: Color filters
+    "Known issues":
+      markdown: doc/known-issues.md
+      name: Known issues
+  showUndocumentedCategories: true
+  ignore:
+    - broken-link
+    - missing-from-search-index

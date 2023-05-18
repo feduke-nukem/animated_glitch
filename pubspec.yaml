@@ -1,0 +1,18 @@
+name: animated_glitch
+description:  Animated Glitch is a Flutter package that allows you to easily create glitch effects and control them
+version: 1.0.0
+# homepage:
+
+environment:
+  sdk: ^2.19.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  dart_code_metrics: ^5.7.3 

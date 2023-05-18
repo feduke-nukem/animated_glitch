@@ -1,0 +1,129 @@
+analyzer:
+  plugins:
+    - dart_code_metrics
+
+dart_code_metrics: 
+  metrics:
+    cyclomatic-complexity: 20
+    number-of-parameters: 4
+    maximum-nesting-level: 3
+  metrics-exclude:
+    - test/**
+  rules: 
+    - avoid-unnecessary-type-assertions
+    - avoid-unrelated-type-assertions 
+    - avoid-nested-conditional-expressions 
+    - no-boolean-literal-compare
+    - no-empty-block
+    - prefer-conditional-expressions
+    - no-equal-then-else
+    - prefer-moving-to-variable 
+    - prefer-match-file-name
+    - avoid-double-slash-imports 
+    - no-object-declaration
+    - member-ordering:
+        order:
+          - constructors
+          - private-fields
+          - public-fields
+          - close-method
+          - dispose-method
+        widgets-order:
+          - constructor
+          - build-method
+          - init-state-method
+          - did-change-dependencies-method
+          - did-update-widget-method
+          - dispose-method
+    - format-comment:
+        only-doc-comments: true
+        ignored-patterns: 
+            - "@nodoc"
+    - no-boolean-literal-compare:
+        severity: error
+    - double-literal-format:
+        severity: error
+    - no-equal-arguments:
+        severity: error
+    - no-equal-then-else:
+        severity: error
+    - no-magic-number:
+        severity: error
+    - binary-expression-operand-order:
+        severity: error
+    - avoid-unnecessary-type-assertions:
+        severity: error
+    - avoid-unnecessary-conditionals:
+        severity: error
+    - avoid-nested-conditional-expressions:
+        acceptable-level: 2
+        severity: error
+    - avoid-missing-enum-constant-in-map:
+        severity: error
+    - avoid-dynamic:
+        severity: error
+    - avoid-global-state:
+        severity: error 
+    - avoid-redundant-async:
+        severity: error
+    - avoid-unnecessary-type-casts:
+        severity: error
+    - prefer-trailing-comma:
+        severity: error
+    - arguments-ordering:
+        child-last: true
+        severity: error
+    - newline-before-return: 
+        severity: error
+    - prefer-async-await:
+        severity: error
+    - prefer-commenting-analyzer-ignores:
+        severity: error
+    - prefer-conditional-expressions:
+        severity: error
+    - avoid-collection-methods-with-unrelated-types:
+        strict: false
+        severity: error
+    - prefer-correct-type-name:
+        excluded: [ 'exampleExclude' ]
+        min-length: 3
+        max-length: 40
+        severity: error
+    - prefer-first:
+        severity: error
+    - prefer-iterable-of:
+        severity: error
+    - prefer-last:
+        severity: error
+    - prefer-moving-to-variable:
+        allowed-duplicated-chains: 3
+        severity: error 
+    - always-remove-listener:
+        severity: error
+    - avoid-returning-widgets:
+        ignored-names:
+          - testFunction
+        ignored-annotations:
+          - allowedAnnotation
+    - avoid-unnecessary-setstate:
+        severity: error
+    - avoid-wrapping-in-padding:
+        severity: error
+    - check-for-equals-in-render-object-setters:
+        severity: error
+    - consistent-update-render-object:
+        severity: error
+    - prefer-correct-edge-insets-constructor:
+        severity: error
+    - prefer-extracting-callbacks:
+          severity: error
+          ignored-named-arguments:
+            - onPressed
+          allowed-line-count: 3
+    - use-setstate-synchronously:
+        severity: error
+
+
+
+  rules-exclude:
+    - test/**

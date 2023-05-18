@@ -1,0 +1,47 @@
+name: build
+
+on:
+  push:
+    paths:
+      - "."
+      - ".github/workflows/build.yaml"
+
+  pull_request:
+    paths:
+      - "."
+      - ".github/workflows/build.yaml"
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: .
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+
+      - name: Install Dependencies
+        run: flutter packages get
+
+      - name: Format
+        run: dart format --set-exit-if-changed .
+
+      - name: Analyze
+        run: dart analyze --fatal-infos --fatal-warnings .
+
+      - name: Run tests
+        run: flutter test --no-pub --coverage --test-randomize-ordering-seed random
+
+      - name: Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          min_coverage: 70
+          path: ./coverage/lcov.info 
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
