@@ -1,5 +1,3 @@
-/// Animated Glitch is a Flutter package that allows you to easily create
-/// glitch effects and control them.
 library animated_glitch;
 
 export 'src/controller/animated_glitch_controller.dart';
