@@ -6,7 +6,7 @@ repository: https://github.com/feduke-nukem/animated_glitch
 issue_tracker: https://github.com/feduke-nukem/animated_glitch/issues
 
 environment:
-  sdk: ^2.19.2
+  sdk: '>=2.19.2 <=3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
