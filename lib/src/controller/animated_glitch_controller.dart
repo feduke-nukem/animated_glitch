@@ -27,15 +27,15 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
     this.frequency = const Duration(milliseconds: 1000),
     this.chance = 50,
     this.level = 1.0,
-    this.colorChannelShifting = const ColorChannelShift(),
-    this.distortionShifting = const DistortionShift(),
+    this.colorChannelShift = const ColorChannelShift(),
+    this.distortionShift = const DistortionShift(),
     bool autoStart = true,
   })  : assert(
           chance <= _maxChance,
           'Chance must not be higher than $_maxChance',
         ),
         assert(
-          distortionShifting.delay == colorChannelShifting.delay,
+          distortionShift.delay == colorChannelShift.delay,
           'To be able glitch synchronized, shiftings must have the same interval.',
         ) {
     if (autoStart) start();
@@ -49,10 +49,10 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
   Size? widgetSize;
 
   /// Settings for color channel shifting.
-  final ColorChannelShift colorChannelShifting;
+  final ColorChannelShift colorChannelShift;
 
   /// Settings for distortion shifting.
-  final DistortionShift distortionShifting;
+  final DistortionShift distortionShift;
 
   /// Whether the controller is active.
   bool get isActive => _isActive;
@@ -122,7 +122,7 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
 
   void _startColorShift() {
     final shifter = ColorChannelShifter(
-      shift: colorChannelShifting,
+      shift: colorChannelShift,
       glitchCoefficient: _coefficient,
       random: _random,
       timers: _timers,
@@ -136,7 +136,7 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
     if (widgetSize == null) return;
 
     final shifter = DistortionShifter(
-      shift: distortionShifting,
+      shift: distortionShift,
       widgetHeight: widgetSize!.height,
       glitchCoefficient: _coefficient,
       random: _random,

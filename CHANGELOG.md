@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Changed controller arguments for shifts (shifting -> shift)
+
 ## 1.0.0+2
 
 Fixed doc

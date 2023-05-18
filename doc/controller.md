@@ -27,8 +27,8 @@ You can specify optional values such as:
 final controller = AnimatedGlitchController(
   frequency: const Duration(milliseconds: 500),
   level: 2.2,
-  distortionShifting: const DistortionShift(count: 20),
-  colorChannelShifting: const ColorChannelShift(
+  distortionShift: const DistortionShift(count: 20),
+  colorChannelShift: const ColorChannelShift(
     colors: [
       Colors.purple,
       Colors.indigoAccent,

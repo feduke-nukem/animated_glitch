@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _controller = AnimatedGlitchController(
     frequency: const Duration(milliseconds: 200),
     level: 1.2,
-    distortionShifting: const DistortionShift(count: 3),
+    distortionShift: const DistortionShift(count: 3),
   );
 
   @override
