@@ -43,7 +43,7 @@ Wrap your desired widget with [AnimatedGlitch](https://pub.dev/documentation/ani
 final _controller = AnimatedGlitchController(
   frequency: const Duration(milliseconds: 200),
   level: 1.2,
-  distortionShifting: const DistortionShift(count: 3),
+  distortionShift: const DistortionShift(count: 3),
 );
 
 @override
