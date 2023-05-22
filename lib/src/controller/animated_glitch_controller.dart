@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 const _maxChance = 100;
 const _levelMultiplier = 1.1;
 
-/// {@category Getting started}
 /// {@category Controller}
 /// {@category Known issues}
 /// {@template animated_glitch_controller}

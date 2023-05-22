@@ -3,7 +3,6 @@
 import 'package:animated_glitch/src/distortion/distortion.dart';
 import 'package:animated_glitch/src/distortion/distortion_shifter.dart';
 
-/// {@category Getting started}
 /// {@category Controller}
 /// The shifting settings to be used by [DistortionShifter] to
 /// generate [Distortion].

@@ -1,8 +1,5 @@
 dartdoc:
   categories:
-    "Getting started":
-      markdown: doc/getting-started.md
-      name: Getting started
     "Controller":
       markdown: doc/controller.md
       name: Controller

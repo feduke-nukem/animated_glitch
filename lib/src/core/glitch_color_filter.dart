@@ -1,7 +1,6 @@
 import 'package:animated_glitch/src/widget/glitch_color_filtered.dart';
 import 'package:flutter/material.dart';
 
-/// {@category Getting started}
 /// {@category Color filters}
 /// A color filter to apply to a [GlitchColorFiltered] widget.
 class GlitchColorFilter {

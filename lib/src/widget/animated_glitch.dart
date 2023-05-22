@@ -6,7 +6,6 @@ import 'package:animated_glitch/src/distortion/distortion_widget.dart';
 import 'package:animated_glitch/src/widget/multiple_glitch_color_filtered.dart';
 import 'package:flutter/material.dart';
 
-/// {@category Getting started}
 /// {@category Color filters}
 /// {@category Known issues}
 /// Widget to display a glitch effect.

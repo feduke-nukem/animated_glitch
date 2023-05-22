@@ -4,17 +4,17 @@
 This approach may help:
 
 ```dart
-final _controllers = List.filled(
+final _controllers = List.generate(
   20,
-  AnimatedGlitchController(
+  (_) => AnimatedGlitchController(
     frequency: const Duration(milliseconds: 200),
     level: 1.2,
-    distortionShifting: const DistortionShift(count: 3),
+    distortionShift: const DistortionShift(count: 3),
   ),
 );
-final images = List.filled(
+final images = List.generate(
   20,
-  Image.asset(
+  (_) => Image.asset(
     'assets/cyberpunk.jpg',
     fit: BoxFit.cover,
   ),

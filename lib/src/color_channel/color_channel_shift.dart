@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 // ignore_for_file: no-magic-number
 
-/// {@category Getting started}
 /// {@category Controller}
 /// Settings to shift color channels.
 class ColorChannelShift {

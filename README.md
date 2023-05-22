@@ -21,9 +21,57 @@
 #### What is `animated_glitch` ?
 It is an open-source package for the Flutter framework that provides an animated glitching effect that can be controlled for a specified widget.
 
+#### Getting started
+#### Installation
+In the `pubspec.yaml` of your flutter project, add the following dependency:
+
+```yaml
+dependencies:
+  animated_glitch: <latest_version>
+```
+
+In your library add the following import:
+
+```dart
+import 'package:animated_glitch/animated_glitch.dart'; 
+```
+
+#### Setup and usage
+Wrap your desired widget with [AnimatedGlitch](https://pub.dev/documentation/animated_glitch/latest/animated_glitch/AnimatedGlitch-class.html):
+
+```dart
+final _controller = AnimatedGlitchController(
+  frequency: const Duration(milliseconds: 200),
+  level: 1.2,
+  distortionShifting: const DistortionShift(count: 3),
+);
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: AnimatedGlitch(
+      filters: [
+        GlitchColorFilter(
+          blendMode: BlendMode.color,
+          color: Colors.blue.shade900,
+        )
+      ],
+      controller: _controller,
+      child: Image.asset(
+        'assets/cyberpunk.jpg',
+        fit: BoxFit.cover,
+      ),
+    ),
+  );
+}
+```
+
+Output: 
+
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/c9480e42-dc71-4293-828d-cc1efe291866" height="400"/>
+
 ## Documentation
 
-- [Getting started](https://pub.dev/documentation/animated_glitch/latest/topics/Getting%20started-topic.html)
 - [Controller](https://pub.dev/documentation/animated_glitch/latest/topics/Controller-topic.html)
 - [Color filters](https://pub.dev/documentation/animated_glitch/latest/topics/Color%20filters-topic.html)
 - [Known issues](https://pub.dev/documentation/animated_glitch/latest/topics/Known%20issues-topic.html)
