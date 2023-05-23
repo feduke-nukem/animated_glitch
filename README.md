@@ -70,6 +70,66 @@ Output:
 
 <img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/c9480e42-dc71-4293-828d-cc1efe291866" height="400"/>
 
+You can wrap any kind of widget, and the `glitch effect` will be applied as well.:
+```dart
+final _controller = AnimatedGlitchController(
+  frequency: const Duration(milliseconds: 200),
+  level: 1.2,
+  distortionShift: const DistortionShift(count: 3),
+);
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: AnimatedGlitch(
+      controller: _controller,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Column(
+            children: [
+              Expanded(
+                child: Container(
+                  color: Colors.red,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.orange,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.purple,
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.yellow,
+                ),
+              ),
+            ],
+          ),
+          const Icon(
+            Icons.person,
+            size: 400.0,
+          )
+        ],
+      ),
+    ),
+  );
+}
+```
+
+Output:
+
+
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/d5c8b177-1c01-41d4-9efa-4e0449492ad9" height="400"/>
+
+## Playground
+
+You can play around with the settings on a [playground](https://feduke-nukem.github.io/animated_glitch_playground/#/).
+
 ## Documentation
 
 - [Controller](https://pub.dev/documentation/animated_glitch/latest/topics/Controller-topic.html)
