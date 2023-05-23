@@ -23,11 +23,11 @@ const _levelMultiplier = 1.1;
 /// {@endtemplate}
 class AnimatedGlitchController extends AnimatedGlitchNotifier {
   AnimatedGlitchController({
-    this.frequency = const Duration(milliseconds: 1000),
-    this.chance = 50,
-    this.level = 1.0,
-    this.colorChannelShift = const ColorChannelShift(),
-    this.distortionShift = const DistortionShift(),
+    Duration frequency = const Duration(milliseconds: 1000),
+    int chance = 50,
+    double level = 1.0,
+    ColorChannelShift colorChannelShift = const ColorChannelShift(),
+    DistortionShift distortionShift = const DistortionShift(),
     bool autoStart = true,
   })  : assert(
           chance <= _maxChance,
@@ -36,34 +36,73 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
         assert(
           distortionShift.delay == colorChannelShift.delay,
           'To be able glitch synchronized, shiftings must have the same interval.',
-        ) {
+        ),
+        _chance = chance,
+        _frequency = frequency,
+        _level = level,
+        _colorChannelShift = colorChannelShift,
+        _distortionShift = distortionShift {
     if (autoStart) start();
   }
 
   final _random = GlitchRandom();
   final _timers = GlitchTimers();
-  var _isActive = false;
+
+  bool _isActive = false;
+  double _level;
+  Duration _frequency;
+  int _chance;
+  ColorChannelShift _colorChannelShift;
+  DistortionShift _distortionShift;
 
   @visibleForTesting
   Size? widgetSize;
 
   /// Settings for color channel shifting.
-  final ColorChannelShift colorChannelShift;
+  ColorChannelShift get colorChannelShift => _colorChannelShift;
+  set colorChannelShift(ColorChannelShift value) {
+    if (_colorChannelShift == value) return;
+
+    _colorChannelShift = value;
+    notifyListeners();
+  }
 
   /// Settings for distortion shifting.
-  final DistortionShift distortionShift;
+  DistortionShift get distortionShift => _distortionShift;
+  set distortionShift(DistortionShift value) {
+    if (_distortionShift == value) return;
+
+    _distortionShift = value;
+    notifyListeners();
+  }
 
   /// Whether the controller is active.
   bool get isActive => _isActive;
 
   /// The frequency of the glitches.
-  final Duration frequency;
+  Duration get frequency => _frequency;
+  set frequency(Duration value) {
+    if (_frequency == value) return;
+
+    _frequency = value;
+    _restart();
+  }
 
   /// The chance of a glitch to occur.
-  final int chance;
+  int get chance => _chance;
+  set chance(int value) {
+    if (_chance == value) return;
+
+    _chance = value;
+  }
 
   /// The level of the glitches.
-  final double level;
+  double get level => _level;
+  set level(double value) {
+    if (_level == value) return;
+
+    _level = value;
+  }
 
   double get _coefficient => level * _levelMultiplier;
 
@@ -108,7 +147,7 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
   void _start() {
     _timers.startPeriodic(
       callback: (_) {
-        final shouldGlitch = chance >= _random.number(_maxChance);
+        final shouldGlitch = _chance >= _random.number(_maxChance);
 
         if (!shouldGlitch) return;
 
@@ -121,7 +160,7 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
 
   void _startColorShift() {
     final shifter = ColorChannelShifter(
-      shift: colorChannelShift,
+      shift: _colorChannelShift,
       glitchCoefficient: _coefficient,
       random: _random,
       timers: _timers,
@@ -135,7 +174,7 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
     if (widgetSize == null) return;
 
     final shifter = DistortionShifter(
-      shift: distortionShift,
+      shift: _distortionShift,
       widgetHeight: widgetSize!.height,
       glitchCoefficient: _coefficient,
       random: _random,
@@ -144,5 +183,10 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
     );
 
     return shifter();
+  }
+
+  void _restart() {
+    stop();
+    start();
   }
 }

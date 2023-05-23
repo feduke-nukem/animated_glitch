@@ -30,3 +30,4 @@ pubspec.lock
 .packages
 build/
 coverage/
+web_example/

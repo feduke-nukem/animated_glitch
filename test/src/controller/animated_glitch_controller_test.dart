@@ -76,5 +76,45 @@ void main() {
         () async {
       expect(() => AnimatedGlitchController(chance: 101), throwsAssertionError);
     });
+
+    test('should assign new distortion shift', () {
+      final distortionShift = DistortionShift(count: 35);
+
+      controller.distortionShift = distortionShift;
+
+      expect(controller.distortionShift, distortionShift);
+    });
+
+    test('should assign new colorChannelShift', () {
+      final colorChannelShift = ColorChannelShift(spread: 20);
+
+      controller.colorChannelShift = colorChannelShift;
+
+      expect(controller.colorChannelShift, colorChannelShift);
+    });
+
+    test('should assign new frequency', () {
+      final frequency = Duration(milliseconds: 5200);
+
+      controller.frequency = frequency;
+
+      expect(controller.frequency, frequency);
+    });
+
+    test('should assign new level', () {
+      const level = 5.2;
+
+      controller.level = level;
+
+      expect(controller.level, level);
+    });
+
+    test('should assign new chance', () {
+      const chance = 100;
+
+      controller.chance = chance;
+
+      expect(controller.chance, chance);
+    });
   });
 }
