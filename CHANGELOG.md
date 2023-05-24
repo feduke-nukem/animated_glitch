@@ -1,3 +1,7 @@
+## 1.1.0+1
+
+* updated README.MD
+
 ## 1.1.0
 
 * AnimatedController values are now mutable
