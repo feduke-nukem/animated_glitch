@@ -29,12 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _controller = AnimatedGlitchController(
-    frequency: const Duration(milliseconds: 200),
-    level: 1.2,
-    distortionShift: const DistortionShift(count: 3),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
