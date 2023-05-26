@@ -8,7 +8,8 @@ extension on bool {
 class AnimatedGlitchWithShader extends StatefulWidget {
   final double distortionSpreadReduce;
   final double colorChannelSpreadReduce;
-  final double glitchAmount;
+  final double level;
+  final int glitchAmount;
   final double frequency;
   final int chance;
   final bool showDistortion;
@@ -20,12 +21,15 @@ class AnimatedGlitchWithShader extends StatefulWidget {
     required this.colorChannelSpreadReduce,
     required this.distortionSpreadReduce,
     required this.frequency,
-    required this.glitchAmount,
+    required this.level,
     required this.showColorChannel,
     required this.showDistortion,
     required this.child,
+    required this.glitchAmount,
     super.key,
-  });
+    // https://stackoverflow.com/questions/38986208/webgl-loop-index-cannot-be-compared-with-non-constant-expression
+  }) : assert(glitchAmount <= 10,
+            'glitchAmount must be less than or equal to 10');
 
   @override
   State<AnimatedGlitchWithShader> createState() =>
@@ -59,8 +63,8 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
               ..setFloat(3, widget.distortionSpreadReduce)
               // uColorChannelOffsetDivisor
               ..setFloat(4, widget.colorChannelSpreadReduce)
-              // uGlitchAmount
-              ..setFloat(5, widget.glitchAmount)
+              // uLevel
+              ..setFloat(5, widget.level)
               // uFrequency
               ..setFloat(6, widget.frequency)
               // uChance
@@ -73,6 +77,8 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
               ..setFloat(10, 0)
               // uShiftColorChannelsY
               ..setFloat(11, 1)
+              // uGlitchAmount
+              ..setFloat(12, widget.glitchAmount.toDouble())
               // uChannel0
               ..setImageSampler(0, image);
             canvas.save();

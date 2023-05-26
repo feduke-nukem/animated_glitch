@@ -37,7 +37,8 @@ class _MyHomePageState extends State<MyHomePage> {
         colorChannelSpreadReduce: 30,
         distortionSpreadReduce: 20,
         frequency: 1,
-        glitchAmount: 0.7,
+        level: 0.7,
+        glitchAmount: 3,
         showColorChannel: true,
         showDistortion: true,
         child: Image.asset(
