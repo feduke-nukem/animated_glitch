@@ -1,3 +1,8 @@
+## 1.1.1
+
+* Fixed incorrect usage of `showDistortions` instead of `showColorChannels`.
+* Fixed not showing `ColorChannel` if the list of colors contains a single color.
+
 ## 1.1.0+1
 
 * updated README.MD

@@ -2,7 +2,6 @@ import 'package:animated_glitch/src/color_channel/color_channel.dart';
 import 'package:animated_glitch/src/core/glitch_color_filter.dart';
 import 'package:animated_glitch/src/widget/blend_mode_mask.dart';
 import 'package:animated_glitch/src/widget/glitch_color_filtered.dart';
-import 'package:animated_glitch/src/widget/multiple_glitch_color_filtered.dart';
 import 'package:flutter/material.dart';
 
 /// Widget to display a color channel.

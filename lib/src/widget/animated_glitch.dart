@@ -72,7 +72,7 @@ class AnimatedGlitchState extends State<AnimatedGlitch> {
                 ),
             ],
           ),
-          if (widget.showDistortions && widget.controller.isActive)
+          if (widget.showColorChannels && widget.controller.isActive)
             ...widget.controller.colorChannels.map(
               (e) => ColorChannelWidget(
                 channel: e,

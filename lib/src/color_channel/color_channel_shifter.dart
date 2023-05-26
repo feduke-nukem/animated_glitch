@@ -25,27 +25,24 @@ class ColorChannelShifter extends Shifter<ColorChannel, ColorChannelShift> {
         isSingleColor ? [...shift.colors, ...shift.colors] : shift.colors;
 
     effectiveColors.tick(
-      _onTick,
+      (index, duration) {
+        final isLast = index == effectiveColors.length - 1;
+
+        final colorChannels = isLast
+            ? const <ColorChannel>[]
+            : shift.colors.map(
+                (color) => _createShifted(
+                  color: color,
+                  glitchCoefficient: glitchCoefficient,
+                ),
+              );
+
+        timers.start(
+          callback: () => onShifted(colorChannels.toList()),
+          duration: duration,
+        );
+      },
       interval: shift.delay,
-    );
-  }
-
-  void _onTick(int index, Duration duration) {
-    // TODO: Check for the effectiveColors length instead of the index.
-    final isLast = index == shift.colors.length - 1;
-
-    final colorChannels = isLast
-        ? const <ColorChannel>[]
-        : shift.colors.map(
-            (color) => _createShifted(
-              color: color,
-              glitchCoefficient: glitchCoefficient,
-            ),
-          );
-
-    timers.start(
-      callback: () => onShifted(colorChannels.toList()),
-      duration: duration,
     );
   }
 
