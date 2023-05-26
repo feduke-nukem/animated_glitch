@@ -1,3 +1,8 @@
+## 2.0.0-dev.1
+
+* **FEAT**:Added shader based version of widget.
+* **BREAKING**: increased minimum dart version up to 3.0.0
+
 ## 1.1.1
 
 * Fixed incorrect usage of `showDistortions` instead of `showColorChannels`.

@@ -38,17 +38,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedGlitch(
-        filters: [
-          GlitchColorFilter(
-            blendMode: BlendMode.color,
-            color: Colors.blue.shade900,
-          )
-        ],
-        controller: _controller,
+      body: AnimatedGlitchWithShader(
+        chance: 50,
+        colorChannelSpreadReduce: 30,
+        distortionSpreadReduce: 20,
+        frequency: 1,
+        glitchAmount: 0.7,
+        showColorChannel: true,
+        showDistortion: true,
         child: Image.asset(
           'assets/cyberpunk.jpg',
           fit: BoxFit.cover,
+          height: double.infinity,
+          width: double.infinity,
         ),
       ),
     );
