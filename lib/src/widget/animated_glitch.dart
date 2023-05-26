@@ -49,31 +49,34 @@ class AnimatedGlitchState extends State<AnimatedGlitch> {
 
   @override
   Widget build(BuildContext context) {
+    final composition = widget.filters.isEmpty
+        ? widget.child
+        : MultipleGlitchColorFiltered(
+            filters: widget.filters,
+            child: widget.child,
+          );
+
     return RepaintBoundary(
       key: _key,
       child: Stack(
         children: [
-          MultipleGlitchColorFiltered(
-            filters: widget.filters,
-            child: Stack(
-              children: [
-                Positioned.fill(child: widget.child),
-                if (widget.showDistortions && widget.controller.isActive)
-                  ...widget.controller.distortions.map(
-                    (e) => DistortionWidget(
-                      distortion: e,
-                      child: widget.child,
-                    ),
+          Stack(
+            children: [
+              Positioned.fill(child: composition),
+              if (widget.showDistortions && widget.controller.isActive)
+                ...widget.controller.distortions.map(
+                  (e) => DistortionWidget(
+                    distortion: e,
+                    child: composition,
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
           if (widget.showDistortions && widget.controller.isActive)
             ...widget.controller.colorChannels.map(
               (e) => ColorChannelWidget(
                 channel: e,
-                filters: widget.filters,
-                child: widget.child,
+                child: composition,
               ),
             ),
         ],

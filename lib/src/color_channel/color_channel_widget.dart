@@ -13,13 +13,9 @@ class ColorChannelWidget extends StatelessWidget {
   /// The color channel to display.
   final ColorChannel channel;
 
-  /// The color filters to apply.
-  final List<GlitchColorFilter> filters;
-
   /// @nodoc
   const ColorChannelWidget({
     required this.channel,
-    required this.filters,
     required this.child,
   });
 
@@ -35,10 +31,7 @@ class ColorChannelWidget extends StatelessWidget {
             blendMode: BlendMode.modulate,
             color: channel.color,
           ),
-          child: MultipleGlitchColorFiltered(
-            filters: filters,
-            child: child,
-          ),
+          child: child,
         ),
       ),
     );
