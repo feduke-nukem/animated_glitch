@@ -16,40 +16,25 @@ class ColorChannelShifter extends Shifter<ColorChannel, ColorChannelShift> {
 
   @override
   void call() {
-    if (shift.colors.isEmpty) return;
+    final isSingle = shift.colors.length == 1;
+    final colors = isSingle ? shift.colors + shift.colors : shift.colors;
 
-    final isSingleColor = shift.colors.length == 1;
+    for (var i = 0; i < colors.length; i++) {
+      final elementNumber = i + 1;
+      final duration = shift.delay * elementNumber;
+      final isLast = i == colors.length - 1;
 
-    // To ensure that the single color is shifted at least once.
-    final effectiveColors =
-        isSingleColor ? [...shift.colors, ...shift.colors] : shift.colors;
+      final colorChannels =
+          !isLast ? shift.colors.map(_createShifted) : const <ColorChannel>[];
 
-    effectiveColors.tick(
-      (index, duration) {
-        final isLast = index == effectiveColors.length - 1;
-
-        final colorChannels = isLast
-            ? const <ColorChannel>[]
-            : shift.colors.map(
-                (color) => _createShifted(
-                  color: color,
-                  glitchCoefficient: glitchCoefficient,
-                ),
-              );
-
-        timers.start(
-          callback: () => onShifted(colorChannels.toList()),
-          duration: duration,
-        );
-      },
-      interval: shift.delay,
-    );
+      timers.start(
+        callback: () => onShifted(colorChannels.toList()),
+        duration: duration,
+      );
+    }
   }
 
-  ColorChannel _createShifted({
-    required Color color,
-    required double glitchCoefficient,
-  }) {
+  ColorChannel _createShifted(Color color) {
     final min = glitchCoefficient * -shift.spread;
     final max = glitchCoefficient * shift.spread;
 
