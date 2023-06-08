@@ -95,7 +95,7 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
       );
 
   // TODO(plugfox): Replace algorithm with proper magic constant
-  // to make glitch effect more smooth
+  // to make glitch effect more smooth, slow, faster or make more random
   void _updateSeed(Duration elapsed) =>
       _seed.value = elapsed.inMilliseconds / 8000;
 
