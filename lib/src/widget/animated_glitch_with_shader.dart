@@ -5,6 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
+// TODO(plugfox): convert underlaying widget to image instead
+// https://gist.github.com/PlugFox/b2445fc249f566ad6499f520e2f6808c#file-screenshot_scope-dart-L17-L25
+// or pass Image as widget's argument
+Future<void> $initImage(String assetPath) async =>
+    _$image = await _loadImage(assetPath);
 late ui.Image _$image;
 Future<ui.Image> _loadImage(String assetPath) async {
   ByteData data = await rootBundle.load(assetPath);
@@ -13,9 +18,6 @@ Future<ui.Image> _loadImage(String assetPath) async {
 
   return fi.image;
 }
-
-Future<void> $initImage(String assetPath) async =>
-    _$image = await _loadImage(assetPath);
 
 class AnimatedGlitchWithShader extends StatefulWidget {
   const AnimatedGlitchWithShader({
@@ -59,6 +61,8 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
 
   late final ValueNotifier<double> _seed = ValueNotifier<double>(0.0);
 
+  // TODO(plugfox): Replace algorithm with proper magic constant
+  // to make glitch effect more smooth
   late final Ticker _ticker =
       createTicker((elapsed) => _seed.value = elapsed.inMicroseconds / 1000000);
 
@@ -94,6 +98,7 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
 
   @override
   void dispose() {
+    _seed.dispose();
     _ticker.dispose();
     super.dispose();
   }
@@ -129,8 +134,12 @@ class _AnimatedGlitchPainter$Shader extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (shader == null) {
+      // TODO(plugfox): draw a image instead of transparent color
       canvas.drawRect(Offset.zero & size, Paint()..color = Colors.transparent);
+
+      return;
     }
+
     final paint = Paint()
       ..shader = (shader!
         // uTime
