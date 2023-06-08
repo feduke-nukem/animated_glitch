@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 void main() => Future<void>(() async {
       WidgetsFlutterBinding.ensureInitialized();
+      // TODO(plugfox): remove this line and replace with proper image loading
       await $initImage('assets/cyberpunk.jpg');
       runApp(const App());
     });
@@ -47,6 +48,7 @@ class _HomePageState extends State<HomePage> {
               glitchAmount: 3,
               showColorChannel: true,
               showDistortion: true,
+              // TODO(plugfox): replace with proper image
               child: SizedBox.shrink(),
               /* child: Image.asset(
                 'assets/cyberpunk.jpg',
