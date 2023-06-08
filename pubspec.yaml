@@ -7,15 +7,14 @@ issue_tracker: https://github.com/feduke-nukem/animated_glitch/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: ">=1.17.0"
+  flutter: '>=3.10.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_shaders: ^0.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  dart_code_metrics: ^5.7.3 
+  dart_code_metrics: ^5.7.3
