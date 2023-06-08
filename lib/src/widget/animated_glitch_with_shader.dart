@@ -162,10 +162,6 @@ class _AnimatedGlitchPainter$Shader extends CustomPainter {
         // uChannel0
         ..setImageSampler(0, image));
     canvas.drawRect(Offset.zero & size, paint);
-
-    /* canvas.save();
-    canvas.drawRect(Offset.zero & size, Paint()..shader = shader);
-    canvas.restore(); */
   }
 
   @override
