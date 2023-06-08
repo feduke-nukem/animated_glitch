@@ -68,10 +68,7 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
 
   late final ValueNotifier<double> _seed = ValueNotifier<double>(0.0);
 
-  // TODO(plugfox): Replace algorithm with proper magic constant
-  // to make glitch effect more smooth
-  late final Ticker _ticker =
-      createTicker((elapsed) => _seed.value = elapsed.inMicroseconds / 1000000);
+  late final Ticker _ticker;
 
   @override
   Widget build(BuildContext context) => RepaintBoundary(
@@ -97,10 +94,15 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
         ),
       );
 
+  // TODO(plugfox): Replace algorithm with proper magic constant
+  // to make glitch effect more smooth
+  void _updateSeed(Duration elapsed) =>
+      _seed.value = elapsed.inMilliseconds / 8000;
+
   @override
   void initState() {
     super.initState();
-    _ticker.start();
+    _ticker = createTicker(_updateSeed)..start();
   }
 
   @override
