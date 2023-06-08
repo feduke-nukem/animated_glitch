@@ -35,6 +35,13 @@ class AnimatedGlitchWithShader extends StatefulWidget {
   }) : assert(glitchAmount <= 10,
             'glitchAmount must be less than or equal to 10');
 
+  /// You can speed up the first glitch frame to appear by
+  /// calling [ensureInitialized] before the widget starts.
+  static Future<void> ensureInitialized() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await _AnimatedGlitchWithShaderState._shaderFuture;
+  }
+
   final double distortionSpreadReduce;
   final double colorChannelSpreadReduce;
   final double level;
