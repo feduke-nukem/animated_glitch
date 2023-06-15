@@ -32,20 +32,28 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedGlitchWithShader(
-        chance: 50,
-        colorChannelSpreadReduce: 30,
-        distortionSpreadReduce: 20,
-        frequency: 1,
-        level: 0.7,
-        glitchAmount: 3,
-        showColorChannel: true,
-        showDistortion: true,
-        child: Image.asset(
-          'assets/cyberpunk.jpg',
-          fit: BoxFit.cover,
-          height: double.infinity,
-          width: double.infinity,
+      body: SafeArea(
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+          ),
+          itemCount: 1000,
+          itemBuilder: (context, index) => AnimatedGlitchWithShader(
+            chance: 50,
+            colorChannelSpreadReduce: 30,
+            distortionSpreadReduce: 20,
+            frequency: 1,
+            level: 0.7,
+            glitchAmount: 3,
+            showColorChannel: true,
+            showDistortion: true,
+            child: Image.asset(
+              'assets/cyberpunk.jpg',
+              fit: BoxFit.cover,
+              height: double.infinity,
+              width: double.infinity,
+            ),
+          ),
         ),
       ),
     );
