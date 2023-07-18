@@ -159,30 +159,26 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
   }
 
   void _startColorShift() {
-    final shifter = ColorChannelShifter(
+    return ColorChannelShifter(
       shift: _colorChannelShift,
       glitchCoefficient: _coefficient,
       random: _random,
       timers: _timers,
       onShifted: (colorChannels) => this.colorChannels = colorChannels,
-    );
-
-    return shifter();
+    ).call();
   }
 
   void _startDistortionShift() {
     if (widgetSize == null) return;
 
-    final shifter = DistortionShifter(
+    return DistortionShifter(
       shift: _distortionShift,
       widgetHeight: widgetSize!.height,
       glitchCoefficient: _coefficient,
       random: _random,
       timers: _timers,
       onShifted: (distortions) => this.distortions = distortions,
-    );
-
-    return shifter();
+    ).call();
   }
 
   void _restart() {

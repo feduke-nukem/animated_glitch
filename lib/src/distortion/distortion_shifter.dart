@@ -17,11 +17,7 @@ class DistortionShifter extends Shifter<Distortion, DistortionShift> {
     required super.onShifted,
   });
 
-  /// @nodoc
-  @visibleForTesting
   final distortions = Queue<Distortion>();
-
-  /// @nodoc
   final double widgetHeight;
 
   @override
@@ -43,11 +39,7 @@ class DistortionShifter extends Shifter<Distortion, DistortionShift> {
   /// @nodoc
   @visibleForTesting
   void onShiftTimer() {
-    final distortion = createShifted(
-      glitchCoefficient: glitchCoefficient,
-      widgetHeight: widgetHeight,
-    );
-    distortions.add(distortion);
+    distortions.add(createShifted());
     onShifted(distortions.toList());
 
     hideShifted();
@@ -55,10 +47,7 @@ class DistortionShifter extends Shifter<Distortion, DistortionShift> {
 
   /// @nodoc
   @visibleForTesting
-  Distortion createShifted({
-    required double glitchCoefficient,
-    required double widgetHeight,
-  }) {
+  Distortion createShifted() {
     const marginSpreadStep = 25;
     const leftBound = 5;
     const rightBound = 30;
