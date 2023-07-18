@@ -39,8 +39,7 @@ class DistortionShifter extends Shifter<Distortion, DistortionShift> {
   /// @nodoc
   @visibleForTesting
   void onShiftTimer() {
-    final distortion = createShifted();
-    distortions.add(distortion);
+    distortions.add(createShifted());
     onShifted(distortions.toList());
 
     hideShifted();

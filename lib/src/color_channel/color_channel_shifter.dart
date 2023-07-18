@@ -1,7 +1,6 @@
 import 'package:animated_glitch/src/color_channel/color_channel.dart';
 import 'package:animated_glitch/src/core/shifter.dart';
 import 'package:animated_glitch/src/color_channel/color_channel_shift.dart';
-import 'package:animated_glitch/src/util/glitch_iterable_x.dart';
 import 'package:flutter/material.dart';
 
 /// Command based class to shift color channels.
