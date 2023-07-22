@@ -107,7 +107,7 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
       time: 0.0,
     ),
   );
-  final _globalKey = GlobalKey();
+  final _childRepaintBoundaryKey = GlobalKey();
   var _isDisposed = false;
 
   @override
@@ -116,7 +116,7 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
       child: Stack(
         children: [
           RepaintBoundary(
-            key: _globalKey,
+            key: _childRepaintBoundaryKey,
             child: _SizeWidget(
               onSize: (value) =>
                   _data.value = _data.value.copyWith(size: value),
@@ -173,8 +173,8 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
   void _reflectIsActive() => widget.isActive ? _ticker.start() : _ticker.stop();
 
   void _updateShaderPainter(Duration duration) async {
-    final boundary =
-        _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    final boundary = _childRepaintBoundaryKey.currentContext!.findRenderObject()
+        as RenderRepaintBoundary;
 
     final image = await boundary.toImage(
       pixelRatio: MediaQuery.of(context).devicePixelRatio,
