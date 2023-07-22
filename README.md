@@ -28,6 +28,16 @@ When applying the glitch effect, you have two main options: one with a shader an
 
 For instance, the non-shader version can accept various provided colors and generate corresponding color channels, while the non-shader version is limited to only three colors (RGB). However, the shader version typically offers better performance and a richer visual effect.
 
+## Comparison
+
+With shader:
+
+![ezgif-3-67648a42b4](https://github.com/feduke-nukem/animated_glitch/assets/72284940/9c2a718e-39f4-4c72-b07a-e5dc4ff7d689)
+
+Without shader:
+
+<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/c9480e42-dc71-4293-828d-cc1efe291866" alt="blue" height="480"/>
+
 ## Documentation
 
 - [With shader](https://pub.dev/documentation/animated_glitch/latest/topics/With%20shader-topic.html)
