@@ -32,6 +32,8 @@ abstract class AnimatedGlitch implements Widget {
     bool showDistortions,
     bool showColorChannels,
     double speedStep,
+    bool isColorsShiftedVertically,
+    bool isColorsShiftedHorizontally,
     bool isActive,
     Key? key,
   }) = AnimatedGlitchWithShader;
