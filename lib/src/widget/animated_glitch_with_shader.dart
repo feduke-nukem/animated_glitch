@@ -2,55 +2,92 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
+import 'animated_glitch.dart';
 
-// TODO(plugfox): convert underlaying widget to image instead
-// https://gist.github.com/PlugFox/b2445fc249f566ad6499f520e2f6808c#file-screenshot_scope-dart-L17-L25
-// or pass Image as widget's argument
-Future<void> $initImage(String assetPath) async =>
-    _$image = await _loadImage(assetPath);
-late ui.Image _$image;
-Future<ui.Image> _loadImage(String assetPath) async {
-  ByteData data = await rootBundle.load(assetPath);
-  ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
-  ui.FrameInfo fi = await codec.getNextFrame();
-
-  return fi.image;
+extension on bool {
+  double toFloat() => this ? 1.0 : 0.0;
 }
 
-class AnimatedGlitchWithShader extends StatefulWidget {
+/// {@category With shader}
+/// Shader version of [AnimatedGlitchWithoutShader].
+final class AnimatedGlitchWithShader extends StatefulWidget
+    implements AnimatedGlitch {
+  /// The color channel level.
+  final double colorChannelLevel;
+
+  /// The distortion level.
+  final double distortionLevel;
+
+  /// The amount of glitch.
+  final double glitchAmount;
+
+  /// The speed of the glitch.
+  final double speed;
+
+  /// The chance of the glitch.
+  final int chance;
+
+  /// Whether to display the distortions.
+  final bool showDistortions;
+
+  /// Whether to display the color channels.
+  final bool showColorChannels;
+
+  /// The widget to display.
+  final Widget child;
+
+  /// The time increment.
+  ///
+  /// You may think of it as a second speed value but with more precision.
+  final double speedStep;
+
+  /// Whether the glitch is active.
+  final bool isActive;
+
+  /// Whether color channels are shifted by Y.
+  final bool isColorsShiftedVertically;
+
+  /// Whether color channels are shifted by x.
+  final bool isColorsShiftedHorizontally;
+
+  /// @nodoc.
   const AnimatedGlitchWithShader({
-    required this.chance,
-    required this.colorChannelSpreadReduce,
-    required this.distortionSpreadReduce,
-    required this.frequency,
-    required this.level,
-    required this.showColorChannel,
-    required this.showDistortion,
     required this.child,
-    required this.glitchAmount,
+    this.chance = 50,
+    double speed = 100,
+    double distortionLevel = 3.5,
+    double colorChannelLevel = 2.3,
+    this.showColorChannels = true,
+    this.showDistortions = true,
+    this.glitchAmount = 3,
+    this.speedStep = 0.0042,
+    this.isActive = true,
+    this.isColorsShiftedVertically = false,
+    this.isColorsShiftedHorizontally = true,
     super.key,
     // https://stackoverflow.com/questions/38986208/webgl-loop-index-cannot-be-compared-with-non-constant-expression
-  }) : assert(glitchAmount <= 10,
-            'glitchAmount must be less than or equal to 10');
-
-  /// You can speed up the first glitch frame to appear by
-  /// calling [ensureInitialized] before the widget starts.
-  static Future<void> ensureInitialized() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await _AnimatedGlitchWithShaderState._shaderFuture;
-  }
-
-  final double distortionSpreadReduce;
-  final double colorChannelSpreadReduce;
-  final double level;
-  final int glitchAmount;
-  final double frequency;
-  final int chance;
-  final bool showDistortion;
-  final bool showColorChannel;
-  final Widget child;
+  })  : assert(
+          glitchAmount <= 10,
+          'glitchAmount must be less than or equal to 10',
+        ),
+        assert(speed >= 0 && speed <= 100, 'speed must be between 0 and 100'),
+        assert(
+          chance >= 0 && chance <= 100,
+          'chance must be between 0 and 100',
+        ),
+        assert(
+          distortionLevel >= 0 && distortionLevel <= 100,
+          'distortionLevel must be between 0 and 100',
+        ),
+        assert(
+          colorChannelLevel >= 0 && colorChannelLevel <= 100,
+          'colorChannelLevel must be between 0 and 100',
+        ),
+        this.speed = speed / 100,
+        this.colorChannelLevel = colorChannelLevel / 100,
+        this.distortionLevel = distortionLevel / 100;
 
   @override
   State<AnimatedGlitchWithShader> createState() =>
@@ -59,6 +96,8 @@ class AnimatedGlitchWithShader extends StatefulWidget {
 
 class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
     with SingleTickerProviderStateMixin {
+  late final _ticker = createTicker(_updateShaderPainter);
+
   static final Future<ui.FragmentShader> _shaderFuture = () async {
     const shader = 'packages/animated_glitch/shader/glitch.frag';
     final program = await ui.FragmentProgram.fromAsset(shader);
@@ -66,85 +105,224 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
     return program.fragmentShader();
   }();
 
-  late final ValueNotifier<double> _seed = ValueNotifier<double>(0.0);
-
-  late final Ticker _ticker;
+  late final _data = ValueNotifier(
+    _ShaderPainterData(
+      size: Size.zero,
+      time: 0.0,
+    ),
+  );
+  final _globalKey = GlobalKey();
+  var _isDisposed = false;
 
   @override
-  Widget build(BuildContext context) => RepaintBoundary(
-        child: FutureBuilder<ui.FragmentShader>(
-          future: _shaderFuture,
-          initialData: null,
-          builder: (context, snapshot) => CustomPaint(
-            painter: _AnimatedGlitchPainter$Shader(
-              seed: _seed,
-              shader: snapshot.data,
-              distortionSpreadReduce: widget.distortionSpreadReduce,
-              colorChannelSpreadReduce: widget.colorChannelSpreadReduce,
-              level: widget.level,
-              frequency: widget.frequency,
-              chance: widget.chance,
-              showDistortion: widget.showDistortion,
-              showColorChannel: widget.showColorChannel,
-              glitchAmount: widget.glitchAmount,
-              image: _$image,
+  Widget build(BuildContext context) {
+    return RepaintBoundary(
+      child: Stack(
+        children: [
+          RepaintBoundary(
+            key: _globalKey,
+            child: _SizeWidget(
+              onSize: (value) =>
+                  _data.value = _data.value.copyWith(size: value),
+              child: widget.child,
             ),
-            child: widget.child,
           ),
-        ),
-      );
-
-  // TODO(plugfox): Replace algorithm with proper magic constant
-  // to make glitch effect more smooth, slow, faster or make more random
-  void _updateSeed(Duration elapsed) =>
-      _seed.value = elapsed.inMilliseconds / 8000;
+          FutureBuilder(
+            future: _shaderFuture,
+            builder: (_, snapshot) => CustomPaint(
+              painter: _AnimatedGlitchPainterShader(
+                data: _data,
+                shader: snapshot.data,
+                colorChannelLevel: widget.colorChannelLevel,
+                distortionLevel: widget.distortionLevel,
+                speed: widget.speed,
+                chance: widget.chance,
+                showDistortions: widget.showDistortions,
+                showColorChannels: widget.showColorChannels,
+                glitchAmount: widget.glitchAmount,
+                isColorsShiftedHorizontally: widget.isColorsShiftedHorizontally,
+                isColorsShiftedVertically: widget.isColorsShiftedVertically,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   void initState() {
     super.initState();
-    _ticker = createTicker(_updateSeed)..start();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (widget.isActive) _ticker.start();
+    });
+  }
+
+  @override
+  void didUpdateWidget(covariant AnimatedGlitchWithShader oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.isActive != widget.isActive) _reflectIsActive();
   }
 
   @override
   void dispose() {
-    _seed.dispose();
     _ticker.dispose();
+    _data.value.image?.dispose();
+    _data.dispose();
+    _isDisposed = true;
     super.dispose();
+  }
+
+  void _reflectIsActive() => widget.isActive ? _ticker.start() : _ticker.stop();
+
+  void _updateShaderPainter(Duration duration) async {
+    final boundary =
+        _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+
+    final image = await boundary.toImage(
+      pixelRatio: MediaQuery.of(context).devicePixelRatio,
+    );
+
+    if (_isDisposed) {
+      image.dispose();
+
+      return;
+    }
+
+    _data.value = _data.value.copyWith(
+      time: _data.value.time + widget.speedStep,
+      image: image,
+    );
   }
 }
 
-class _AnimatedGlitchPainter$Shader extends CustomPainter {
-  _AnimatedGlitchPainter$Shader({
-    required this.seed,
-    required this.shader,
-    required this.distortionSpreadReduce,
-    required this.colorChannelSpreadReduce,
-    required this.level,
-    required this.frequency,
-    required this.chance,
-    required this.showDistortion,
-    required this.showColorChannel,
-    required this.glitchAmount,
-    required this.image,
-  }) : super(repaint: seed);
+class _SizeWidget extends SingleChildRenderObjectWidget {
+  final ValueChanged<Size> onSize;
 
-  final ValueListenable<double> seed;
-  final ui.FragmentShader? shader;
-  final double distortionSpreadReduce;
-  final double colorChannelSpreadReduce;
-  final double level;
-  final double frequency;
-  final int chance;
-  final bool showDistortion;
-  final bool showColorChannel;
-  final int glitchAmount;
-  final ui.Image image;
+  const _SizeWidget({
+    required super.child,
+    required this.onSize,
+  });
 
   @override
-  void paint(Canvas canvas, Size size) {
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderSizeWidget(onSize);
+
+  @override
+  void updateRenderObject(
+    BuildContext context,
+    _RenderSizeWidget renderObject,
+  ) =>
+      renderObject._onSize = onSize;
+}
+
+class _RenderSizeWidget extends RenderProxyBox {
+  _RenderSizeWidget(this._onSize);
+
+  ValueChanged<Size> _onSize;
+  void set onSize(ValueChanged<Size> value) {
+    if (_onSize == value) return;
+    _onSize = value;
+    markNeedsLayout();
+  }
+
+  @override
+  void performLayout() {
+    super.performLayout();
+    _onSize(size);
+  }
+}
+
+class _ShaderPainterData {
+  const _ShaderPainterData({
+    required this.size,
+    required this.time,
+    this.image,
+  });
+
+  final Size size;
+  final double time;
+  final ui.Image? image;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _ShaderPainterData &&
+          runtimeType == other.runtimeType &&
+          time == other.time &&
+          image == other.image &&
+          size == other.size;
+
+  @override
+  int get hashCode => time.hashCode ^ image.hashCode ^ size.hashCode;
+
+  _ShaderPainterData copyWith({
+    Size? size,
+    double? time,
+    ui.Image? image,
+  }) {
+    return _ShaderPainterData(
+      size: size ?? this.size,
+      time: time ?? this.time,
+      image: image ?? this.image,
+    );
+  }
+}
+
+class _AnimatedGlitchPainterShader extends CustomPainter {
+  _AnimatedGlitchPainterShader({
+    required this.data,
+    required this.shader,
+    required this.colorChannelLevel,
+    required this.distortionLevel,
+    required this.speed,
+    required this.chance,
+    required this.showDistortions,
+    required this.showColorChannels,
+    required this.glitchAmount,
+    required this.isColorsShiftedHorizontally,
+    required this.isColorsShiftedVertically,
+  }) : super(repaint: data);
+
+  ui.Image? _lastImage;
+  final ValueListenable<_ShaderPainterData> data;
+  final double colorChannelLevel;
+  final double distortionLevel;
+  final double glitchAmount;
+  final double speed;
+  final int chance;
+  final bool showDistortions;
+  final bool showColorChannels;
+  final ui.FragmentShader? shader;
+  final bool isColorsShiftedVertically;
+  final bool isColorsShiftedHorizontally;
+
+  @override
+  void paint(Canvas canvas, Size _) {
+    final time = data.value.time;
+    final image = data.value.image;
+    final size = data.value.size;
+
+    if (_lastImage != image) {
+      _lastImage?.dispose();
+      _lastImage = image;
+    }
+
+    if (image == null) {
+      canvas.drawRect(
+        Offset.zero & size,
+        Paint()..color = Colors.transparent,
+      );
+
+      return;
+    }
     if (shader == null) {
-      // TODO(plugfox): draw a image instead of transparent color
-      canvas.drawRect(Offset.zero & size, Paint()..color = Colors.transparent);
+      canvas.drawImage(
+        image,
+        Offset.zero,
+        Paint()..color = Colors.transparent,
+      );
 
       return;
     }
@@ -152,46 +330,46 @@ class _AnimatedGlitchPainter$Shader extends CustomPainter {
     final paint = Paint()
       ..shader = (shader!
         // uTime
-        ..setFloat(0, seed.value)
+        ..setFloat(0, time)
         // uResolution x
         ..setFloat(1, size.width)
         // uResolution y
         ..setFloat(2, size.height)
-        // uDistortionOffsetDivisor
-        ..setFloat(3, distortionSpreadReduce)
-        // uColorChannelOffsetDivisor
-        ..setFloat(4, colorChannelSpreadReduce)
-        // uLevel
-        ..setFloat(5, level)
-        // uFrequency
-        ..setFloat(6, frequency)
+        // uDistortionLevel
+        ..setFloat(3, distortionLevel)
+        // uColorChannelLevel
+        ..setFloat(4, colorChannelLevel)
+        // uSpeed
+        ..setFloat(5, speed)
         // uChance
-        ..setFloat(7, chance.toDouble())
+        ..setFloat(6, chance.toDouble())
         // uShowDistortion
-        ..setFloat(8, showDistortion ? 1.0 : 0.0)
+        ..setFloat(7, showDistortions.toFloat())
         // uShowColorChannel
-        ..setFloat(9, showColorChannel ? 1.0 : 0.0)
+        ..setFloat(8, showColorChannels.toFloat())
         // uShiftColorChannelsY
-        ..setFloat(10, 0)
-        // uShiftColorChannelsY
-        ..setFloat(11, 1)
+        ..setFloat(9, isColorsShiftedVertically.toFloat())
+        // uShiftColorChannelsX
+        ..setFloat(10, isColorsShiftedHorizontally.toFloat())
         // uGlitchAmount
-        ..setFloat(12, glitchAmount.toDouble())
+        ..setFloat(11, glitchAmount)
         // uChannel0
         ..setImageSampler(0, image));
+
     canvas.drawRect(Offset.zero & size, paint);
   }
 
   @override
-  bool shouldRepaint(covariant _AnimatedGlitchPainter$Shader oldDelegate) =>
-      oldDelegate.seed.value != seed.value ||
+  bool shouldRepaint(_AnimatedGlitchPainterShader oldDelegate) =>
+      oldDelegate.data != data ||
       oldDelegate.shader != shader ||
-      oldDelegate.distortionSpreadReduce != distortionSpreadReduce ||
-      oldDelegate.colorChannelSpreadReduce != colorChannelSpreadReduce ||
-      oldDelegate.level != level ||
-      oldDelegate.frequency != frequency ||
+      oldDelegate.isColorsShiftedHorizontally != isColorsShiftedHorizontally ||
+      oldDelegate.isColorsShiftedVertically != isColorsShiftedVertically ||
+      oldDelegate.distortionLevel != distortionLevel ||
+      oldDelegate.colorChannelLevel != colorChannelLevel ||
+      oldDelegate.speed != speed ||
       oldDelegate.chance != chance ||
-      oldDelegate.showDistortion != showDistortion ||
-      oldDelegate.showColorChannel != showColorChannel ||
+      oldDelegate.showDistortions != showDistortions ||
+      oldDelegate.showColorChannels != showColorChannels ||
       oldDelegate.glitchAmount != glitchAmount;
 }

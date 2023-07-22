@@ -7,10 +7,9 @@ const float MAX_ITERATIONS = 10.0;
 
 uniform float uTime;
 uniform vec2 uResolution;
-uniform float uDistortionSpreadReduce;
-uniform float uColorChannelSpreadReduce;
-uniform float uLevel; //0 - 1 glitch level
-uniform float uFrequency; //0 - 1 speed
+uniform float uDistortionLevel; //0 - 1 glitch level
+uniform float uColorChannelLevel; //0 - 1 glitch level
+uniform float uSpeed; //0 - 1 speed
 uniform float uChance; //0 - 100 percent chance of glitch
 uniform float uShowDistortions; //0 - 1
 uniform float uShowColorChannels; //0 - 1
@@ -37,7 +36,7 @@ float insideRange(float v, float bottom, float top) {
    
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-    float time = floor(uTime * uFrequency * 60.0);
+    float time = floor(uTime * uSpeed * 60.0);
     vec2 uv = fragCoord.xy / uResolution.xy;
     
     // Copy original color
@@ -49,7 +48,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
         // Randomly offset slices horizontally
         if(uShowDistortions == 1.0){
-            float maxOffset = uLevel / uDistortionSpreadReduce;
+            float maxOffset = uDistortionLevel;
 
             for (float i = 0.0; i < MAX_ITERATIONS; i += 1.0) {
                 if (i >= uGlitchAmount){break;}
@@ -66,7 +65,7 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
         // Do slight offset on one entire channel
         if(uShowColorChannels == 1.0){
-            float maxColOffset = uLevel / uColorChannelSpreadReduce;
+            float maxColOffset = uColorChannelLevel;
             float rnd = random2d(vec2(time, 9545.0));
             float xRange = (uShiftColorChannelsX == 1.0) ? randomRange(vec2(time , 9545.0), -maxColOffset, maxColOffset) : 0.0;
             float yRange = (uShiftColorChannelsY == 1.0) ? randomRange(vec2(time , 7205.0), -maxColOffset, maxColOffset) : 0.0;

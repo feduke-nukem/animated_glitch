@@ -1,17 +1,48 @@
 import 'package:animated_glitch/src/controller/animated_glitch_controller.dart';
-
 import 'package:animated_glitch/src/color_channel/color_channel_widget.dart';
 import 'package:animated_glitch/src/core/glitch_color_filter.dart';
 import 'package:animated_glitch/src/distortion/distortion_widget.dart';
 import 'package:animated_glitch/src/widget/multiple_glitch_color_filtered.dart';
 import 'package:flutter/material.dart';
 
-/// {@category Color filters}
-/// {@category Known issues}
+import 'animated_glitch_with_shader.dart';
+
+/// {@category With shader}
+/// {@category Without shader}
+/// Shortcuts.
+abstract class AnimatedGlitch implements Widget {
+  /// Shortcut to create a [AnimatedGlitchWithoutShader].
+  const factory AnimatedGlitch({
+    required Widget child,
+    required AnimatedGlitchController controller,
+    bool showColorChannels,
+    bool showDistortions,
+    List<GlitchColorFilter> filters,
+    Key? key,
+  }) = AnimatedGlitchWithoutShader;
+
+  /// Shortcut to create a [AnimatedGlitchWithShader].
+  const factory AnimatedGlitch.shader({
+    required Widget child,
+    double colorChannelLevel,
+    double distortionLevel,
+    double glitchAmount,
+    double speed,
+    int chance,
+    bool showDistortions,
+    bool showColorChannels,
+    double speedStep,
+    bool isActive,
+    Key? key,
+  }) = AnimatedGlitchWithShader;
+}
+
+/// {@category Without shader}
 /// Widget to display a glitch effect.
 ///
 /// It is driven by the provided [AnimatedGlitchController].
-class AnimatedGlitch extends StatefulWidget {
+final class AnimatedGlitchWithoutShader extends StatefulWidget
+    implements AnimatedGlitch {
   /// The widget to display.
   final Widget child;
 
@@ -30,7 +61,7 @@ class AnimatedGlitch extends StatefulWidget {
   final List<GlitchColorFilter> filters;
 
   /// @nodoc
-  const AnimatedGlitch({
+  const AnimatedGlitchWithoutShader({
     required this.child,
     required this.controller,
     this.showColorChannels = true,
@@ -40,11 +71,13 @@ class AnimatedGlitch extends StatefulWidget {
   });
 
   @override
-  State<AnimatedGlitch> createState() => AnimatedGlitchState();
+  State<AnimatedGlitchWithoutShader> createState() =>
+      _AnimatedGlitchWithoutShaderState();
 }
 
 /// @nodoc
-class AnimatedGlitchState extends State<AnimatedGlitch> {
+class _AnimatedGlitchWithoutShaderState
+    extends State<AnimatedGlitchWithoutShader> {
   final _key = GlobalKey();
 
   @override
@@ -97,7 +130,7 @@ class AnimatedGlitchState extends State<AnimatedGlitch> {
   }
 
   @override
-  void didUpdateWidget(covariant AnimatedGlitch oldWidget) {
+  void didUpdateWidget(covariant AnimatedGlitchWithoutShader oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.controller != oldWidget.controller) {
       oldWidget.controller.removeListener(_rebuild);

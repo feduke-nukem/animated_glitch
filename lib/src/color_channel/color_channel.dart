@@ -1,9 +1,7 @@
 import 'package:animated_glitch/animated_glitch.dart';
 import 'package:flutter/material.dart';
 
-/// {@category Controller}
-/// {@category Color filters}
-/// Information for [AnimatedGlitch] to display a color channel.
+/// Information for [AnimatedGlitchWithoutShader] to display a color channel.
 class ColorChannel {
   const ColorChannel(
     this.color, {

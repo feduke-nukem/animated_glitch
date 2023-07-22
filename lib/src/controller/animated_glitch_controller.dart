@@ -1,23 +1,19 @@
+import 'package:animated_glitch/animated_glitch.dart';
 import 'package:animated_glitch/src/color_channel/color_channel.dart';
-import 'package:animated_glitch/src/color_channel/color_channel_shift.dart';
 import 'package:animated_glitch/src/core/animated_glitch_notifier.dart';
 import 'package:animated_glitch/src/color_channel/color_channel_shifter.dart';
 import 'package:animated_glitch/src/distortion/distortion.dart';
 import 'package:animated_glitch/src/distortion/distortion_shifter.dart';
-import 'package:animated_glitch/src/distortion/distortion_shift.dart';
 import 'package:animated_glitch/src/util/glitch_random.dart';
 import 'package:animated_glitch/src/util/glitch_timers.dart';
-import 'package:animated_glitch/src/widget/animated_glitch.dart';
 import 'package:flutter/material.dart';
-// ignore_for_file: no-magic-number
 
 const _maxChance = 100;
 const _levelMultiplier = 1.1;
 
-/// {@category Controller}
-/// {@category Known issues}
+/// {@category Without shader}
 /// {@template animated_glitch_controller}
-/// Controller to control the [AnimatedGlitch] widget.
+/// Controller to control the [AnimatedGlitchWithoutShader] widget.
 ///
 /// Generates random glitches based on [frequency], [chance] and [level].
 /// {@endtemplate}
@@ -137,9 +133,9 @@ class AnimatedGlitchController extends AnimatedGlitchNotifier {
     super.distortions = const <Distortion>[];
   }
 
-  /// Binds the controller to the [AnimatedGlitch] widget.
+  /// Binds the controller to the [AnimatedGlitchWithoutShader] widget.
   ///
-  /// This is called automatically by the [AnimatedGlitch] widget.
+  /// This is called automatically by the [AnimatedGlitchWithoutShader] widget.
   void bind(Size widgetSize) {
     this.widgetSize = widgetSize;
   }
