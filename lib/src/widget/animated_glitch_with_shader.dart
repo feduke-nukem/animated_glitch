@@ -6,10 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'animated_glitch.dart';
 
-extension on bool {
-  double toFloat() => this ? 1.0 : 0.0;
-}
-
 /// {@category With shader}
 /// Shader version of [AnimatedGlitchWithoutShader].
 final class AnimatedGlitchWithShader extends StatefulWidget
@@ -344,13 +340,13 @@ class _AnimatedGlitchPainterShader extends CustomPainter {
         // uChance
         ..setFloat(6, chance.toDouble())
         // uShowDistortion
-        ..setFloat(7, showDistortions.toFloat())
+        ..setFloat(7, showDistortions ? 1.0 : 0.0)
         // uShowColorChannel
-        ..setFloat(8, showColorChannels.toFloat())
+        ..setFloat(8, showColorChannels ? 1.0 : 0.0)
         // uShiftColorChannelsY
-        ..setFloat(9, isColorsShiftedVertically.toFloat())
+        ..setFloat(9, isColorsShiftedVertically ? 1.0 : 0.0)
         // uShiftColorChannelsX
-        ..setFloat(10, isColorsShiftedHorizontally.toFloat())
+        ..setFloat(10, isColorsShiftedHorizontally ? 1.0 : 0.0)
         // uGlitchAmount
         ..setFloat(11, glitchAmount)
         // uChannel0
