@@ -1,21 +1,17 @@
 name: animated_glitch
 description:  Animated Glitch is a Flutter package that allows you to easily create glitch effects and control them
-version: 2.0.0-dev.2
+version: 2.0.0
 homepage: https://github.com/feduke-nukem/animated_glitch
 repository: https://github.com/feduke-nukem/animated_glitch
 issue_tracker: https://github.com/feduke-nukem/animated_glitch/issues
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
-  flutter: ">=1.17.0"
+  flutter: '>=3.10.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_shaders: 
-    git:
-      url: https://github.com/jonahwilliams/flutter_shaders
-      ref: fix_leak
 
 dev_dependencies:
   flutter_test:

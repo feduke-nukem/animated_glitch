@@ -2,8 +2,6 @@ import 'package:animated_glitch/src/core/glitch_color_filter.dart';
 import 'package:animated_glitch/src/widget/glitch_color_filtered.dart';
 import 'package:flutter/material.dart';
 
-/// {@category Color filters}
-///
 /// A widget that applies multiple [GlitchColorFilter]s to its [child].
 class MultipleGlitchColorFiltered extends StatelessWidget {
   /// The widget to display.

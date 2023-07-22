@@ -1,3 +1,6 @@
+## 2.0.0
+* **FEAT:** Added shader version of effect
+
 ## 2.0.0-dev.2
 
 * **FIX**: Added glitch amount limitation for shader version due to https://stackoverflow.com/questions/38986208/webgl-loop-index-cannot-be-compared-with-non-constant-expression.

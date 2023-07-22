@@ -1,9 +1,8 @@
 import 'package:animated_glitch/src/distortion/distortion_rect.dart';
 import 'package:animated_glitch/src/distortion/horizontal_position.dart';
-import 'package:animated_glitch/src/widget/animated_glitch.dart';
 
 /// {@category Controller}
-/// Information for [AnimatedGlitch] to display a distortion.
+/// Information for [_AnimatedGlitchBasic] to display a distortion.
 class Distortion {
   /// @nodoc
   const Distortion({

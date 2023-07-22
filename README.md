@@ -24,119 +24,17 @@
 #### What is `animated_glitch` ?
 It is an open-source package for the Flutter framework that provides an animated glitching effect that can be controlled for a specified widget.
 
-#### Getting started
-#### Installation
-In the `pubspec.yaml` of your flutter project, add the following dependency:
+When applying the glitch effect, you have two main options: one with a shader and the other without. The choice may depend on your specific needs, such as performance, extensive customization, or visual output.
 
-```yaml
-dependencies:
-  animated_glitch: <latest_version>
-```
+For instance, the non-shader version can accept various provided colors and generate corresponding color channels, while the non-shader version is limited to only three colors (RGB). However, the shader version typically offers better performance and a richer visual effect.
 
-In your library add the following import:
+## Documentation
 
-```dart
-import 'package:animated_glitch/animated_glitch.dart'; 
-```
-
-#### Setup and usage
-Wrap your desired widget with [AnimatedGlitch](https://pub.dev/documentation/animated_glitch/latest/animated_glitch/AnimatedGlitch-class.html):
-
-```dart
-final _controller = AnimatedGlitchController(
-  frequency: const Duration(milliseconds: 200),
-  level: 1.2,
-  distortionShift: const DistortionShift(count: 3),
-);
-
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: AnimatedGlitch(
-      filters: [
-        GlitchColorFilter(
-          blendMode: BlendMode.color,
-          color: Colors.blue.shade900,
-        )
-      ],
-      controller: _controller,
-      child: Image.asset(
-        'assets/cyberpunk.jpg',
-        fit: BoxFit.cover,
-      ),
-    ),
-  );
-}
-```
-
-Output: 
-
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/c9480e42-dc71-4293-828d-cc1efe291866" height="400"/>
-
-You can wrap any kind of widget, and the `glitch effect` will be applied as well.:
-```dart
-final _controller = AnimatedGlitchController(
-  frequency: const Duration(milliseconds: 200),
-  level: 1.2,
-  distortionShift: const DistortionShift(count: 3),
-);
-
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: AnimatedGlitch(
-      controller: _controller,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            children: [
-              Expanded(
-                child: Container(
-                  color: Colors.red,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.orange,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.purple,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.yellow,
-                ),
-              ),
-            ],
-          ),
-          const Icon(
-            Icons.person,
-            size: 400.0,
-          )
-        ],
-      ),
-    ),
-  );
-}
-```
-
-Output:
-
-
-<img src="https://github.com/feduke-nukem/animated_glitch/assets/72284940/d5c8b177-1c01-41d4-9efa-4e0449492ad9" height="400"/>
+- [With shader](https://pub.dev/documentation/animated_glitch/latest/topics/With%20shader-topic.html)
+- [Without shaders](https://pub.dev/documentation/animated_glitch/latest/topics/Without%20shader-topic.html)
 
 ## Playground
 
 You can play around with the settings on a [playground](https://feduke-nukem.github.io/animated_glitch_playground/#/).
 
-## Documentation
-
-- [Controller](https://pub.dev/documentation/animated_glitch/latest/topics/Controller-topic.html)
-- [Color filters](https://pub.dev/documentation/animated_glitch/latest/topics/Color%20filters-topic.html)
-- [Known issues](https://pub.dev/documentation/animated_glitch/latest/topics/Known%20issues-topic.html)
-
-Inspired by [f_glitch](https://pub.dev/packages/f_glitch)
+**Inspired by [f_glitch](https://pub.dev/packages/f_glitch)**

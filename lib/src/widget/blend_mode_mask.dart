@@ -3,7 +3,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-/// {@category Color filters}
 /// A widget to apply a [BlendMode] to its child.
 class BlendModeMask extends SingleChildRenderObjectWidget {
   /// Blend mode to apply.

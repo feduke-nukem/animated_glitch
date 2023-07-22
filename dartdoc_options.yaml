@@ -1,14 +1,11 @@
 dartdoc:
   categories:
-    "Controller":
-      markdown: doc/controller.md
-      name: Controller
-    "Color filters":
-      markdown: doc/color-filters.md
-      name: Color filters
-    "Known issues":
-      markdown: doc/known-issues.md
-      name: Known issues
+    "Without shader":
+      markdown: doc/without-shader.md
+      name: Without shader
+    "With shader":
+      markdown: doc/with-shader.md
+      name: With shader
   showUndocumentedCategories: true
   ignore:
     - broken-link
