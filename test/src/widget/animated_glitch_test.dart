@@ -32,16 +32,19 @@ void main() {
       color: Colors.red,
     );
 
+    final controller = AnimatedGlitchController();
+
     await widgetTester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: AnimatedGlitch(
           child: child,
-          controller: AnimatedGlitchController(),
+          controller: controller,
         ),
       ),
     ));
     await widgetTester.pump();
 
     expect(find.byKey(key), findsOneWidget);
+    controller.stop();
   });
 }
