@@ -1,3 +1,6 @@
+## 2.0.0+1
+* **DOC:** Fixed doc
+
 ## 2.0.0
 * **FEAT:** Added shader version of effect
 
