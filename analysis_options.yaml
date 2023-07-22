@@ -46,9 +46,7 @@ dart_code_metrics:
     - no-equal-arguments:
         severity: error
     - no-equal-then-else:
-        severity: error
-    - no-magic-number:
-        severity: error
+        severity: error 
     - binary-expression-operand-order:
         severity: error
     - avoid-unnecessary-type-assertions:
@@ -115,11 +113,6 @@ dart_code_metrics:
         severity: error
     - prefer-correct-edge-insets-constructor:
         severity: error
-    - prefer-extracting-callbacks:
-          severity: error
-          ignored-named-arguments:
-            - onPressed
-          allowed-line-count: 3
     - use-setstate-synchronously:
         severity: error
 

@@ -1,3 +1,12 @@
+## 2.0.0-dev.2
+
+* **FIX**: Added glitch amount limitation for shader version due to https://stackoverflow.com/questions/38986208/webgl-loop-index-cannot-be-compared-with-non-constant-expression.
+
+## 2.0.0-dev.1
+
+* **FEAT**:Added shader based version of widget.
+* **BREAKING**: increased minimum dart version up to 3.0.0
+
 ## 1.1.1
 
 * Fixed incorrect usage of `showDistortions` instead of `showColorChannels`.
