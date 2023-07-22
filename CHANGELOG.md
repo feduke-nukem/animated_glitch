@@ -1,3 +1,5 @@
+## 2.0.0+2
+* **FIX:** Fixed lint warning
 ## 2.0.0+1
 * **DOC:** Fixed doc
 

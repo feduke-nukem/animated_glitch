@@ -217,7 +217,7 @@ class _RenderSizeWidget extends RenderProxyBox {
   _RenderSizeWidget(this._onSize);
 
   ValueChanged<Size> _onSize;
-  void set onSize(ValueChanged<Size> value) {
+  set onSize(ValueChanged<Size> value) {
     if (_onSize == value) return;
     _onSize = value;
     markNeedsLayout();
