@@ -1,0 +1,28 @@
+name: Feature Request
+description: File a feature request
+title: "[Feature]: "
+labels: ["feature request"]
+assignees:
+  - feduke-nukem
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this feature request!
+  - type: textarea
+    id: your-idea
+    attributes:
+      label: What is your idea?
+      description: Tell us about your idea.
+      placeholder: Your idea
+      value: "Your idea!"
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/feduke-nukem/animated_glitch/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
