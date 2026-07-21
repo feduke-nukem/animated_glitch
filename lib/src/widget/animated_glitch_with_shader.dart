@@ -176,6 +176,8 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
     final boundary = _childRepaintBoundaryKey.currentContext!.findRenderObject()
         as RenderRepaintBoundary;
 
+    if (boundary.debugNeedsPaint) return;
+
     final image = await boundary.toImage(
       pixelRatio: MediaQuery.of(context).devicePixelRatio,
     );
