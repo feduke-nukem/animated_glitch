@@ -1,13 +1,5 @@
 #### Setup and usage
 
-First of all, it is necessary to add a shader asset to your `pubspec.yaml`:
-
-```yaml
-flutter:
-  shaders: 
-    - 'packages/animated_glitch/shader/glitch.frag'
-```
-
 This version doesn't require any external controller, you just need to pass the desired arguments with specific values, and you are ready to go:
 
 ```dart

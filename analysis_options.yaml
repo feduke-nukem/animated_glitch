@@ -1,4 +1,6 @@
 analyzer:
+  exclude:
+    - build/**
   plugins:
     - dart_code_metrics
 

@@ -1,5 +1,10 @@
+## 3.0.0
+
+* **BREAKING**: Moved the glitch shader to `assets/shaders/glitch.frag` and declared it in the package `pubspec.yaml`, so consumers no longer need to register the shader themselves.
+
 ## 2.0.0+2
 * **FIX:** Fixed lint warning
+
 ## 2.0.0+1
 * **DOC:** Fixed doc
 
