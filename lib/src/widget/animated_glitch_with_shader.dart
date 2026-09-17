@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
+
 import 'animated_glitch.dart';
 
 /// {@category With shader}
@@ -95,7 +96,7 @@ class _AnimatedGlitchWithShaderState extends State<AnimatedGlitchWithShader>
   late final _ticker = createTicker(_updateShaderPainter);
 
   static final Future<ui.FragmentShader> _shaderFuture = () async {
-    const shader = 'packages/animated_glitch/shader/glitch.frag';
+    const shader = 'packages/animated_glitch/assets/shaders/glitch.frag';
     final program = await ui.FragmentProgram.fromAsset(shader);
 
     return program.fragmentShader();

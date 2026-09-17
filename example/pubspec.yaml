@@ -24,5 +24,3 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-  shaders:
-    - 'packages/animated_glitch/shader/glitch.frag'
